@@ -1,17 +1,10 @@
 import { Module } from '@nestjs/common';
 import { GqlService } from './gql.service';
-import { GraphQLModule } from '@nestjs/graphql';
-import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { MongooseModule } from '@nestjs/mongoose';
+import { Gql, GqlSchema } from './schemas/gql.schema';
 
 @Module({
-  imports: [
-    GraphQLModule.forRoot<ApolloDriverConfig>({
-      driver: ApolloDriver,
-      debug: false,
-      playground: true,
-      autoSchemaFile: 'schema.gpl',
-    }),
-  ],
+  imports: [MongooseModule.forFeature([{ name: Gql.name, schema: GqlSchema }])],
   providers: [GqlService],
 })
 export class GqlModule {}
