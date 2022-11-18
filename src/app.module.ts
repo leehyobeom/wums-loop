@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { GqlModule } from './gql/gql.module';
+import { CursorMonitorModule } from './cursorMonitor/cursorMonitor.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -19,7 +19,7 @@ import { ConfigModule } from '@nestjs/config';
     MongooseModule.forRoot(
       `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.gdscktn.mongodb.net/WUMS`,
     ),
-    GqlModule,
+    CursorMonitorModule,
   ],
 })
 export class AppModule {}

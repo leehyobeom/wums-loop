@@ -1,15 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { GqlService } from './gql.service';
+import { CursorMonitorService } from './cursorMonitor.service';
 
-describe('GqlService', () => {
-  let service: GqlService;
+describe('CursorMonitorService', () => {
+  let service: CursorMonitorService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [GqlService],
+      providers: [CursorMonitorService],
     }).compile();
 
-    service = module.get<GqlService>(GqlService);
+    service = module.get<CursorMonitorService>(CursorMonitorService);
   });
 
   it('should be defined', () => {
