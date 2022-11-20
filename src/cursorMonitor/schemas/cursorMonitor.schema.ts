@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
+import { HydratedDocument, Types } from 'mongoose';
 import { Field, ObjectType } from '@nestjs/graphql';
 
 export type CursorMonitorDocument = HydratedDocument<CursorMonitor>;
@@ -15,6 +15,10 @@ export class test {
 @ObjectType()
 @Schema()
 export class CursorMonitor {
+  @Prop({ type: Types.ObjectId })
+  @Field()
+  _id: string;
+
   @Prop()
   @Field()
   ip: string;
@@ -25,7 +29,7 @@ export class CursorMonitor {
 
   @Prop()
   @Field(type => [test])
-  coordinate: test[];
+  coordinate: [test];
 
   @Prop()
   @Field()

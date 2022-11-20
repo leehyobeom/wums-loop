@@ -1,4 +1,4 @@
-import { Model } from 'mongoose';
+import { Model, mongo } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import {
@@ -15,7 +15,14 @@ export class CursorMonitorService {
   ) {}
 
   async get(): Promise<CursorMonitorDTO> {
-    console.log(await this.cursorMonitorModel.findOne());
     return await this.cursorMonitorModel.findOne();
+  }
+
+  async getOne(_id: string): Promise<CursorMonitorDTO> {
+    return await this.cursorMonitorModel.findById(new mongo.ObjectId(_id));
+  }
+
+  async gets(): Promise<[CursorMonitorDTO]> {
+    return <[CursorMonitorDTO]>await this.cursorMonitorModel.find();
   }
 }

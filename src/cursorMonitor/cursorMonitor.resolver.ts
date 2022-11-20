@@ -1,4 +1,4 @@
-import { Query, Resolver } from '@nestjs/graphql';
+import { Args, Query, Resolver } from '@nestjs/graphql';
 import { CursorMonitorService } from './cursorMonitor.service';
 import { CursorMonitor } from './schemas/cursorMonitor.schema';
 
@@ -9,5 +9,15 @@ export class CursorMonitorResolver {
   @Query((returns) => CursorMonitor)
   async get() {
     return this.cursorMonitorService.get();
+  }
+
+  @Query((returns) => CursorMonitor)
+  async getOne(@Args('_id', { type: () => String }) _id : string) {
+    return this.cursorMonitorService.getOne(_id);
+  }
+
+  @Query((returns) => [CursorMonitor])
+  async gets() {
+    return this.cursorMonitorService.gets();
   }
 }
