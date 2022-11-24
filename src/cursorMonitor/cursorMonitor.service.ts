@@ -14,15 +14,16 @@ export class CursorMonitorService {
     private cursorMonitorModel: Model<CursorMonitorDocument>,
   ) {}
 
-  async get(): Promise<CursorMonitorDTO> {
-    return await this.cursorMonitorModel.findOne();
-  }
-
   async getOne(_id: string): Promise<CursorMonitorDTO> {
     return await this.cursorMonitorModel.findById(new mongo.ObjectId(_id));
   }
 
   async gets(): Promise<[CursorMonitorDTO]> {
     return <[CursorMonitorDTO]>await this.cursorMonitorModel.find();
+  }
+
+  async create(cursorMonitor: CursorMonitor): Promise<string> {
+    await this.cursorMonitorModel.create(cursorMonitor);
+    return 'ok';
   }
 }
