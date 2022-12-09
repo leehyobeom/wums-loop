@@ -1,0 +1,59 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: version
+env:
+  AWS_REGION: ap-northeast-2
+  ECR_REGISTRY: 251974498126.dkr.ecr.ap-northeast-2.amazonaws.com
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+      - name: AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_SECRET_ACCESS_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+      - name: AWS ECR Login
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+      - run: |
+          mkdir -p ./deploy
+          touch ./deploy/Dockerrun.aws.json
+      - run: |
+          echo -e '{
+            "AWSEBDockerrunVersion": "1",
+            "Image": {
+              "Name": "${{ secrets.AWS_ECR_ENDPOINT }}/wums-loop:${{ inputs.version }}",
+              "Update": "true"
+            },
+            "Ports": [
+              {
+                "ContainerPort": 8080
+              }
+            ]
+          }' >> ./deploy/Dockerrun.aws.json
+      - run: cat ./deploy/Dockerrun.aws.json
+      - run: cd deploy && zip -r deploy.zip .
+      - name: Beanstalk Deploy
+        uses: einaregilsson/beanstalk-deploy@v14
+        with:
+          aws_access_key: ${{ secrets.AWS_SECRET_ACCESS_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: wums-loop
+          environment_name: wums-loop
+          version_label: wums-loop-v${{ inputs.version }}
+          region: ap-northeast-2
+          deployment_package: deploy/deploy.zip
+          wait_for_environment_recovery: 200
+          use_existing_version_if_available: true
+          
