@@ -4,8 +4,8 @@ import { InjectModel } from '@nestjs/mongoose';
 import {
   CursorMonitor,
   CursorMonitorDocument,
-} from './schemas/cursorMonitor.schema';
-import { CursorMonitorDTO } from './dto/cursorMonitor.dto';
+} from '@libs/schema/cursorMonitor.schema';
+import { CursorMonitorDTO } from '@libs/schema/cursorMonitor.dto';
 
 @Injectable()
 export class CursorMonitorService {

@@ -3,11 +3,6 @@
   "collection": "@nestjs/schematics",
   "sourceRoot": "apps/app/src",
   "monorepo": true,
-  "root": "apps/app",
-  "compilerOptions": {
-    "webpack": true,
-    "tsConfigPath": "apps/app/tsconfig.app.json"
-  },
   "projects": {
     "wums-consumer": {
       "type": "application",
@@ -16,6 +11,15 @@
       "sourceRoot": "apps/wums-consumer/src",
       "compilerOptions": {
         "tsConfigPath": "apps/wums-consumer/tsconfig.app.json"
+      }
+    },
+    "wums-producer": {
+      "type": "application",
+      "root": "apps/wums-producer",
+      "entryFile": "main",
+      "sourceRoot": "apps/wums-producer/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/wums-producer/tsconfig.app.json"
       }
     },
     "wums-gql": {

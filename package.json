@@ -13,6 +13,10 @@
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
+    "start:prod:producer": "node dist/apps/wums-producer/src/main",
+    "start:prod:consumer": "node dist/apps/wums-consumer/src/main",
+    "start:prod:gql": "node dist/apps/wums-gql/src/main",
+    "start:prod:driver": "node dist/apps/wums-driver/src/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -79,7 +83,7 @@
       "<rootDir>/libs/"
     ],
     "moduleNameMapper": {
-      "^@app/schema(|/.*)$": "<rootDir>/libs/schema/src/$1"
+      "^@libs/schema(|/.*)$": "<rootDir>/libs/schema/src/$1"
     }
   }
 }

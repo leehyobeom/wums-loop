@@ -5,7 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import {
   CursorMonitor,
   CursorMonitorSchema,
-} from './schemas/cursorMonitor.schema';
+} from '@libs/schema/cursorMonitor.schema';
 
 @Module({
   imports: [
