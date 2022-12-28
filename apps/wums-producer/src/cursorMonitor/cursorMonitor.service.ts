@@ -6,6 +6,7 @@ import {
   CursorMonitorDocument,
 } from '@libs/schema/cursorMonitor.schema';
 import { CursorMonitorDTO } from '@libs/schema/cursorMonitor.dto';
+import { Client, ClientKafka, Transport } from '@nestjs/microservices';
 
 @Injectable()
 export class CursorMonitorService {
@@ -13,6 +14,25 @@ export class CursorMonitorService {
     @InjectModel(CursorMonitor.name)
     private cursorMonitorModel: Model<CursorMonitorDocument>,
   ) {}
+
+  @Client({
+    transport: Transport.KAFKA,
+    options: {
+      client: {
+        clientId: 'wums',
+        brokers: ['kafka:9092'],
+      },
+      consumer: {
+        groupId: 'wums',
+      },
+    },
+  })
+  client: ClientKafka;
+
+  async onModuleInit() {
+    this.client.subscribeToResponseOf('wums');
+    await this.client.connect();
+  }
 
   async getOne(_id: string): Promise<CursorMonitorDTO> {
     return await this.cursorMonitorModel.findById(new mongo.ObjectId(_id));
@@ -22,8 +42,12 @@ export class CursorMonitorService {
     return <[CursorMonitorDTO]>await this.cursorMonitorModel.find();
   }
 
-  async create(cursorMonitor: CursorMonitor): Promise<string> {
-    await this.cursorMonitorModel.create(cursorMonitor);
-    return 'ok';
+  async create(cursorMonitor: CursorMonitor): Promise<any> {
+    return this.client.send('wums', cursorMonitor);
   }
+
+  // async create(cursorMonitor: CursorMonitor): Promise<string> {
+  //   await this.cursorMonitorModel.create(cursorMonitor);
+  //   return 'ok';
+  // }
 }
