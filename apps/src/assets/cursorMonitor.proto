@@ -1,0 +1,23 @@
+syntax = "proto3";
+package cursorMonitor;
+
+message Coordinate {
+  int32 x = 6;
+  int32 y = 7;
+}
+
+message CursorData {
+ required string id = 1;
+ required int32 ip = 2;
+ required string brand = 3;
+ repeated Coordinate coordinate = 4;
+ required string date = 5;
+}
+
+message Result {
+    string result = 1;
+}
+
+service CursorService {
+  rpc SetCursorData (CursorData) returns (Result);
+}

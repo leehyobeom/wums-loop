@@ -1,7 +1,11 @@
 {
   "$schema": "https://json.schemastore.org/nest-cli",
   "collection": "@nestjs/schematics",
-  "sourceRoot": "apps/app/src",
+  "sourceRoot": "apps/src",
+  "compilerOptions": {
+    "assets": ["assets/*.proto"],
+    "watchAssets": true
+  },
   "monorepo": true,
   "projects": {
     "wums-consumer": {

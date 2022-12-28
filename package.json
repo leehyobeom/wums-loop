@@ -25,6 +25,8 @@
     "test:e2e": "jest --config ./apps/app/test/jest-e2e.json"
   },
   "dependencies": {
+    "@grpc/grpc-js": "^1.8.0",
+    "@grpc/proto-loader": "^0.7.4",
     "@nestjs/apollo": "^10.1.6",
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.2.0",
