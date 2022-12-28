@@ -8,9 +8,9 @@ async function bootstrap() {
     {
       transport: Transport.GRPC,
       options: {
-        url: 'localhost:50001',
+        url: 'localhost:5000',
         package: 'cursorMonitor',
-        protoPath: join(__dirname, '../../../../../assets/cursorMonitor.proto'),
+        protoPath: join(__dirname, './cursorMonitor.proto'),
       },
     },
   );

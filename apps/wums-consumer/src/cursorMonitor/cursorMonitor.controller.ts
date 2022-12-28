@@ -9,7 +9,7 @@ export class CursorMonitorController {
   constructor(private readonly cursorMonitorService: CursorMonitorService) {}
 
   @MessagePattern('wums')
-  getHello(@Payload() message: CursorMonitor) {
-    return this.cursorMonitorService.create(message);
+  getMessage(@Payload() message: CursorMonitor) {
+    return this.cursorMonitorService.sendToDriver(message);
   }
 }

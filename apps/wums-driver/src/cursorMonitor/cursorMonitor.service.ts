@@ -14,7 +14,7 @@ export class CursorMonitorService {
   ) {}
 
   async create(cursorMonitor: CursorMonitor): Promise<string> {
-    // await this.cursorMonitorModel.create(cursorMonitor);
+    await this.cursorMonitorModel.create(cursorMonitor);
     return 'ok';
   }
 }
