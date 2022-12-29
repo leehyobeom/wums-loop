@@ -1,21 +1,9 @@
 import { Module } from '@nestjs/common';
-import { CursorMonitorService } from './cursorMonitor.service';
 import { CursorMonitorController } from './cursorMonitor.controller';
-import { MongooseModule } from '@nestjs/mongoose';
-import { Transport, ClientsModule } from '@nestjs/microservices';
-import { join } from 'path';
-import {
-  CursorMonitor,
-  CursorMonitorSchema,
-} from '@libs/schema/cursorMonitor.schema';
 
 @Module({
-  imports: [
-    // MongooseModule.forFeature([
-    //   { name: CursorMonitor.name, schema: CursorMonitorSchema },
-    // ]),
-  ],
+  imports: [],
   controllers: [CursorMonitorController],
-  providers: [CursorMonitorService],
+  providers: [],
 })
 export class CursorMonitorModule {}

@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package cursorMonitor;
+package cursorPackage;
 
 message Coordinate {
   int32 x = 1;

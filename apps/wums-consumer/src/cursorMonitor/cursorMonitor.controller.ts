@@ -1,15 +1,37 @@
-import { CursorMonitorService } from './cursorMonitor.service';
-import { CursorMonitor } from '@libs/schema/cursorMonitor.schema';
+import { ICursorService, Idata } from './cursorMonitor.interface';
+import { Controller, OnModuleInit } from '@nestjs/common';
+import { Observable } from 'rxjs';
 
-import { Controller } from '@nestjs/common';
-import { MessagePattern, Payload } from '@nestjs/microservices';
+import {
+  MessagePattern,
+  Payload,
+  Client,
+  Transport,
+  ClientGrpc,
+} from '@nestjs/microservices';
+import { join } from 'path';
 
 @Controller()
-export class CursorMonitorController {
-  constructor(private readonly cursorMonitorService: CursorMonitorService) {}
+export class CursorMonitorController implements OnModuleInit {
+  private cursorService: ICursorService;
+
+  @Client({
+    transport: Transport.GRPC,
+    options: {
+      package: 'cursorPackage',
+      protoPath: join(__dirname, '../cursorMonitor.proto'),
+    },
+  })
+  client: ClientGrpc;
+
+  onModuleInit() {
+    this.cursorService =
+      this.client.getService<ICursorService>('CursorService');
+  }
 
   @MessagePattern('wums')
-  getMessage(@Payload() message: CursorMonitor) {
-    return this.cursorMonitorService.sendToDriver(message);
+  getMessage(@Payload() messages: Idata[]): Observable<any> {
+    const [message] = messages;
+    return this.cursorService.setCursorData(message);
   }
 }

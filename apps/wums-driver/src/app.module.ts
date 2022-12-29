@@ -8,10 +8,7 @@ import { ConfigModule } from '@nestjs/config';
     ConfigModule.forRoot({
       envFilePath: '.env',
     }),
-    MongooseModule.forRoot(
-      `mongodb+srv://LeeHyoBeom:Lsb964183!@cluster0.gdscktn.mongodb.net/WUMS`,
-      //`mongodb://mongodb:27017/wums`,
-    ),
+    MongooseModule.forRoot(`mongodb://mongodb:27017/wums`),
     CursorMonitorModule,
   ],
 })
