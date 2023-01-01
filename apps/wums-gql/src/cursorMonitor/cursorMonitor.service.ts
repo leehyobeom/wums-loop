@@ -6,6 +6,7 @@ import {
   CursorMonitorDocument,
 } from '@libs/schema/cursorMonitor.schema';
 import { CursorMonitorDTO } from '@libs/schema/cursorMonitor.dto';
+import { logger } from '@libs/log/winston';
 
 @Injectable()
 export class CursorMonitorService {
@@ -19,6 +20,7 @@ export class CursorMonitorService {
   }
 
   async gets(): Promise<[CursorMonitorDTO]> {
+    logger.info('gql:gets');
     return <[CursorMonitorDTO]>await this.cursorMonitorModel.find();
   }
 }

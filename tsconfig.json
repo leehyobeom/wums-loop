@@ -24,6 +24,12 @@
       "@libs/schema/*": [
         "libs/schema/src/*"
       ],
+      "@libs/log": [
+        "libs/log/src"
+      ],
+      "@libs/log/*": [
+        "libs/log/src/*"
+      ],
     }
   }
 }
