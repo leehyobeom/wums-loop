@@ -33,8 +33,8 @@ jobs:
       - name: AWS ECR Login
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
-      - run: touch .env
-      - run: echo -e 'DB_USERNAME=${{ secrets.MONGO_USERNAME }}\nDB_PASSWORD=${{ secrets.MONGO_PASSWORD }}\nDB_ENDPOINT=${{ secrets.MONGO_ENDPOINT }}' >> .env
+      # - run: touch .env
+      # - run: echo -e 'DB_USERNAME=${{ secrets.MONGO_USERNAME }}\nDB_PASSWORD=${{ secrets.MONGO_PASSWORD }}\nDB_ENDPOINT=${{ secrets.MONGO_ENDPOINT }}' >> .env
       - name: Docker Image Build & Push
         id: build-image
         env:
