@@ -33,8 +33,6 @@ jobs:
       - name: AWS ECR Login
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
-      # - run: touch .env
-      # - run: echo -e 'DB_USERNAME=${{ secrets.MONGO_USERNAME }}\nDB_PASSWORD=${{ secrets.MONGO_PASSWORD }}\nDB_ENDPOINT=${{ secrets.MONGO_ENDPOINT }}' >> .env
       - name: Docker Image Build & Push
         id: build-image
         env:
@@ -44,8 +42,3 @@ jobs:
         run: |
           sh ./dockerPush.sh $ECR_REGISTRY $IMAGE_TAG
         shell: bash
-        # run: |
-        #   docker build -t $ECR_REGISTRY/$IMAGE_NAME:$IMAGE_TAG .
-        #   docker push $ECR_REGISTRY/$IMAGE_NAME:$IMAGE_TAG
-        #   echo "::set-output name=image::$ECR_REGISTRY:$IMAGE_TAG"
-
